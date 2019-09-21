@@ -86,6 +86,15 @@ def chapter6():
     return True
 
 
+def chapter7():
+    # CHAPTER 7
+    with open("tmp/cryptopals_multibytexor.txt", "r") as file:
+        msg = file
+        crypt = cryptotools.CryptoTools(key=b'YELLOW SUBMARINE', message=msg)
+
+    return True
+
+
 def main():
     chapters = ('1', '2', '3', '4', '5', '6')
 
@@ -113,6 +122,8 @@ def main():
             chapter5()
         if chapter == '6':
             chapter6()
+        if chapter == '7':
+            chapter7()
     else:
         print("Hey! There is no such chapter. Bye bye!")
 
