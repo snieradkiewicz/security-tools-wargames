@@ -1,6 +1,6 @@
 import base64
 from tools import assets
-
+from tools import aes
 
 def evaluate_english_score(message, message_contains_words=False):
     text = str(message.decode("utf-8", errors='ignore')).upper()
@@ -78,6 +78,15 @@ def brute_single_byte_unxor(message):
     return best_char, max_score, bytes(bytes_xor(message, best_char)), best_xored_string
 
 
+def compare_bytearrays(array1, array2):
+    if len(array1) != len(array2):
+        return False
+    for i in range(0, len(array1)):
+        if array1[i] != array2[i]:
+            return False
+    return True
+
+
 class CryptoTools:
     def __init__(self, key=bytes(), message=bytes(), encrypted=bytes()):
         self.__key = key
@@ -86,6 +95,12 @@ class CryptoTools:
 
     def get_encrypted(self):
         return self.__encrypted
+
+    def get_message(self):
+        return self.__message
+
+    def get_decrypted(self):
+        return self.get_message()
 
     def find_key_length(self, min_len=2, max_len=40, fragments=4, top_results=3):
         """
@@ -175,3 +190,11 @@ class CryptoTools:
             line = result[i:i + key_len].replace('\n', ' ')
             print(str(len(line)).zfill(zerofill) + ' : ' + line)
 
+    def encrypt_aes_128_ecb(self):
+        self.__encrypted = aes.encrypt(self.__message, self.__key)
+
+    def decrypt_aes_128_ecb(self):
+        self.__message = aes.decrypt(self.__encrypted, self.__key)
+
+    def is_aes_128_ecb(self):
+        return aes.detect_aes_128_ecb(self.__encrypted, 128)

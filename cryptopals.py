@@ -88,15 +88,35 @@ def chapter6():
 
 def chapter7():
     # CHAPTER 7
-    with open("tmp/cryptopals_multibytexor.txt", "r") as file:
-        msg = file
-        crypt = cryptotools.CryptoTools(key=b'YELLOW SUBMARINE', message=msg)
+    base64_plain = bytearray(b'')
+    with open("tmp/cryptopals_7_aes128ecb.txt", "r") as file:
+        for line in file:
+            base64_plain += bytearray(line.encode("utf-8"))
 
+    print("BASE 64 " + str(base64_plain))
+    enc = bytearray(base64.b64decode(base64_plain))
+    print("ENCRYPTED " + str(enc))
+    crypt = cryptotools.CryptoTools(key=bytearray(b'YELLOW SUBMARINE'), encrypted=enc)
+    crypt.decrypt_aes_128_ecb()
+    print("DECRYPTED: " + str(crypt.get_decrypted()))
+    return True
+
+
+def chapter8():
+    # CHAPTER 8 - detect AES 128 ECB
+    with open("tmp/cryptopals_8_detect_aes128ecb.txt", "r") as file:
+        i = 0
+        for line in file:
+            i += 1
+            cipher = cryptotools.CryptoTools(encrypted=bytearray.fromhex(line))
+            if cipher.is_aes_128_ecb():
+                print("Found AES 128 ECB in line " + str(i) + "     content: \n" +
+                      str([line[i:i+32] for i in range(0, len(line), 32)]))
     return True
 
 
 def main():
-    chapters = ('1', '2', '3', '4', '5', '6')
+    chapters = ('1', '2', '3', '4', '5', '6', '7', '8')
 
     print("Hi there!\n"
           "you've just run cryptopals (https://cryptopals.com/) chapters solutions. Not every chapter might require\n"
@@ -124,6 +144,8 @@ def main():
             chapter6()
         if chapter == '7':
             chapter7()
+        if chapter == '8':
+            chapter8()
     else:
         print("Hey! There is no such chapter. Bye bye!")
 
