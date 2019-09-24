@@ -303,22 +303,29 @@ def decrypt_block(block_in, key):
 
 
 def pad_data(data: bytearray):
+    """
+    Pad message using PKCS#7
+    :param data:
+    :return: padded data
+    """
     size = len(data)
-    if size % 16 != 0:
-        bytes_to_pad = 16 - size % 16
-        data += bytearray(b'\x00' * bytes_to_pad)
+    bytes_to_pad = 16 - size % 16
+    data += bytearray(bytearray(chr(bytes_to_pad).encode('ascii')) * bytes_to_pad)
     return data
 
 
 def unpad_data(data: bytearray):
+    """
+    Unpad message using PKCS#7
+    :param data:
+    :return: unpadded data, or False if pad is not a PKCS#7
+    """
     size = len(data)
-    p=0
-    for i in range(1, 256):
-        if data[size-i] == 0x00:
-            p = i
-        else:
-            break
-    data = data[:size-p]
+    bytes_to_unpad = int(data[size-1])
+    for i in range(0, bytes_to_unpad):
+        if data[size-i-1] != bytes_to_unpad:
+            return False
+    data = data[:size-bytes_to_unpad-1]
     return data
 
 
@@ -331,7 +338,7 @@ def encrypt(message, key):
 
 
 def decrypt(encrypted, key):
-    plain = pad_data(encrypted)
+    plain = encrypted
     decrypted = bytearray()
     for i in range(0, len(plain), 16):
         decrypted += decrypt_block(plain[i:i+16], key)
