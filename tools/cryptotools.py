@@ -52,13 +52,13 @@ def find_n_best_results(all_results, top_results):
     return best_results
 
 
-def bytes_xor(hexbytes1: bytes, hexbytes2: bytes):
-    hexbytes1 = bytearray(hexbytes1)
-    length = len(hexbytes2)
+def bytes_xor(bytes1: bytes, bytes2: bytes):
+    bytes1 = bytearray(bytes1)
+    length = len(bytes2)
     # iterate through every byte and do xor
-    for i in range(0, len(hexbytes1)):
-        hexbytes1[i] = hexbytes1[i] ^ hexbytes2[i % length]
-    return hexbytes1
+    for i in range(0, len(bytes1)):
+        bytes1[i] = bytes1[i] ^ bytes2[i % length]
+    return bytes1
 
 
 def brute_single_byte_unxor(message):
