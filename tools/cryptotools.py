@@ -78,6 +78,18 @@ def brute_single_byte_unxor(message):
     return best_char, max_score, bytes(bytes_xor(message, best_char)), best_xored_string
 
 
+def rot_range(msg, min = 1, max= 26):
+    for i in range(min, max):
+        message = bytearray(msg.encode('ascii'))
+        for j in range(0, len(message)):
+            if 90 >= int(message[j]) >= 65:
+                message[j] = (((int(message[j]) + i) - 65) % 26) + 65
+            else:
+                if 122 >= int(message[j]) >= 97:
+                    message[j] = (((int(message[j]) + i) - 97) % 26) + 97
+        print("For rot: " + str(i) + " the message is : " + str(message))
+
+
 def compare_bytearrays(array1, array2):
     if len(array1) != len(array2):
         return False
