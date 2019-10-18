@@ -237,6 +237,7 @@ def level28():
     parameters = {"query": 'A' * 10}
     r = requests.post('http://natas28.natas.labs.overthewire.org/index.php', data=parameters, auth=credentials)
     location = r.history[0].headers['Location']
+    nice_begin_blocks = ''
     if location[:18] == 'search.php/?query=':
         encrypted = base64.b64decode(urllib.parse.unquote(location[18:]))
         nice_begin_blocks = encrypted[:16*3]
@@ -246,6 +247,7 @@ def level28():
     parameters = {"query": statement}
     r = requests.post('http://natas28.natas.labs.overthewire.org/index.php', data=parameters, auth=credentials)
     location = r.history[0].headers['Location']
+    nice_blocks = ''
     if location[:18] == 'search.php/?query=':
         encrypted = base64.b64decode(urllib.parse.unquote(location[18:]))
         nice_blocks = encrypted[16*3:]

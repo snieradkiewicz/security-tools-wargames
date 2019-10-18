@@ -8,13 +8,13 @@ from secret.credentials import Credentials
 
 def main():
     level = 19
-    level_about = 'In this level you cannot see a sourcecode of vulnerable website, but we have information that this' \
-                  'site uses most of previous level code but Session ID is no longer sequential number. If we try to ' \
-                  'login as a AAAAA user and look at PHPSESSID cookie we see that a cookie cotains some HEX string ' \
-                  'ending with 4141414141 which is a ctually our username "AAAAA". If we hex decode whole cookie value'\
-                  'we can see that it is (for example) 231-AAAAA. Now we can assume that first part is session number' \
-                  'encoded as hex string with appended hex encoded dash and username . Now we try spoof PHPSESSID ' \
-                  'with session number from 1 to 640 with appended hex encoded "-admin".'
+    level_about = 'In this level you cannot see a sourcecode of vulnerable website, but we have information that\n' \
+                  'this site uses most of previous level code but Session ID is no longer sequential number. If we\n' \
+                  'try to login as a AAAAA user and look at PHPSESSID cookie we see that a cookie cotains some HEX\n' \
+                  'string ending with 4141414141 which is a ctually our username "AAAAA". If we hex decode whole\n' \
+                  'cookie value we can see that it is (for example) 231-AAAAA. Now we can assume that first part\n' \
+                  'is session number encoded as hex string with appended hex encoded dash and username . Now we\n' \
+                  'try spoof PHPSESSID with session number from 1 to 640 with appended hex encoded "-admin".'
 
     print("Hi there!\nyou've just run natas level " + str(level) +
           " (http://overthewire.org/wargames/natas/). Credentials are available in the secrets/credentials.py")
